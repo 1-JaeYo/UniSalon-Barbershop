@@ -4,14 +4,14 @@
     <div class="blur-background"></div>
     <div class="container">
         <%- include('../includes/navigation.ejs') %>
-        <main class="centered">
-            <h1><%= barber.title %></h1>
-            <hr>
-            <div class="image">
+        <main class="centered barber-details">
+            <h1 class="barber-title"><%= barber.title %></h1>
+            <hr class="barber-divider">
+            <div class="barber-image">
                 <img src="<%= barber.imageUrl %>" alt="<%= barber.title %>">
             </div>
-            <h2><%= barber.price %></h2>
-            <p><%= barber.description %></p>
+            <h2 class="barber-price">$<%= barber.price %></h2>
+            <p class="barber-description"><%= barber.description %></p>
         </main>
     </div>
 <%- include('../includes/end.ejs') %>

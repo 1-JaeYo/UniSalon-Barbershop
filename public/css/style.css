@@ -325,11 +325,12 @@ main {
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    gap: 5rem;
     padding: 20px;
     font-family: "Rufina", serif;
     font-weight: 700;
     font-style: normal;
+    margin-left: 4rem;
 }
 
 /* Barber card styling */
@@ -339,7 +340,9 @@ main {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s ease;
-    height: 40vh;
+    height: fit-content;
+    width: fit-content;
+    padding-bottom: .5rem;
 }
 
 .card:hover {
@@ -401,6 +404,7 @@ main {
     justify-content: space-betweenn;
     background-color: #f5f5f5;
     margin-top: -2rem;
+    padding-right: 1.5rem;
 }
 
 .card__actions .btnn {
@@ -425,4 +429,62 @@ main {
 }
 .card__actions .btnnn {
     margin-left: 5rem;
+    margin-right: 3rem;
+}
+
+/* Styling for barber details */
+.barber-details {
+    text-align: center;
+    padding: 2rem;
+    background-color: #f5f5f5;  /* Match with the card background color */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 40vw; /* Limit the width of the content */
+    margin: 0 auto;
+    font-family: "Rufina", serif;
+    height: fit-content;
+    margin-top: 5rem;
+}
+
+.barber-title {
+    font-size: 2.5rem;
+    font-family: "Rufina", serif;
+    font-weight: 700;
+    color: #8e2323;
+    margin-bottom: 1rem;
+}
+
+.barber-divider {
+    width: 50px;
+    height: 3px;
+    background-color: #8e2323;
+    border: none;
+    margin: 1.5rem auto;
+}
+
+.barber-image img {
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 1rem auto;
+    border: 5px solid #ddd;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.barber-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #8e2323;
+    margin-top: 1rem;
+}
+
+.barber-description {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 1rem;
+    padding: 0 1rem;
+    line-height: 1.6;
+    font-family: "Rufina", serif;
+    font-weight: 500;
 }
