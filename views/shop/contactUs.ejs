@@ -1,0 +1,31 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<body>
+    <div class="blur-background"></div>
+    <div class="container">
+        <%- include('../includes/navigation.ejs') %>
+        <div class="main">
+            <div class="about_main">
+                <div class="contact_top">
+                    <h1>Contact Us</h1>
+                    <p>We would love you feedback and suggestions!</p>
+                </div>
+                <form class="contact_form" action="#" method="post">
+                    <div class="form_group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form_group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form_group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit_button">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<%- include('../includes/end.ejs') %>

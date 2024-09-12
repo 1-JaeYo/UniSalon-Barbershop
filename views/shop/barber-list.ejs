@@ -1,0 +1,39 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<body>
+    <div class="blur-background"></div>
+    <div class="container">
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+            <% if (barbers.length > 0) { %>
+                <div class="grid">
+                    <% for (let barber of barbers) { %>
+                        <article class="card barber-item">
+                            <header class="card__header">
+                                <h1 class="product__title">
+                                    <%= barber.title %>
+                                </h1>
+                            </header>
+                            <div class="card__image">
+                                <img src="<%= barber.imageUrl %>" alt="<%= barber.title %>">
+                            </div>
+                            <div class="card__content">
+                                <h2 class="product__price">
+                                    $<%= barber.price %>
+                                </h2>
+                                <p class="product__description">
+                                    <%= barber.description %>
+                                </p>
+                            </div>
+                            <div class="card__actions">
+                                <a href="/barbers/<%= barber._id %>" class="btnn btnnn">Details</a>
+                            </div>
+                        </article>
+                        <% } %>
+                </div>
+                <% } else { %>
+                    <h1>No barbers Found!</h1>
+                    <% } %>
+        </main>
+    </div>
+<%- include('../includes/end.ejs') %>

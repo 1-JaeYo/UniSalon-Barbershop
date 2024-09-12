@@ -1,0 +1,17 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<body>
+    <div class="blur-background"></div>
+    <div class="container">
+        <%- include('../includes/navigation.ejs') %>
+        <main class="centered">
+            <h1><%= barber.title %></h1>
+            <hr>
+            <div class="image">
+                <img src="<%= barber.imageUrl %>" alt="<%= barber.title %>">
+            </div>
+            <h2><%= barber.price %></h2>
+            <p><%= barber.description %></p>
+        </main>
+    </div>
+<%- include('../includes/end.ejs') %>

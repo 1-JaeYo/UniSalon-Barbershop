@@ -1,0 +1,88 @@
+nav {
+    display: flex;
+    padding: 10px;
+    width: 77.55vw;
+    border-bottom: 1px solid black;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-family: "Rufina", serif;
+    font-weight: 700;
+    font-style: normal;
+    position: fixed;
+    perspective: 1000;
+    z-index: 5;
+    background-color: #d9cdc1;
+    margin-top: -2rem;
+    margin-left: -2rem;
+}
+
+.nav_logo {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 1rem;
+}
+
+.nav_menu {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 29vw;
+    margin-top: 1rem;
+}
+
+.user_profile {
+    padding: 10px;
+    margin-top: 1rem;
+}
+
+.user_profile a {
+    color: #8e2323;
+    text-shadow: #0000001f 0px 1px 3px, #0000003d 0px 1px 2px;
+}
+
+.user_profile a:hover {
+    color: #605f5f;
+}
+
+.nav_menu a {
+    color: #8e2323;
+    text-shadow: #0000001f 0px 1px 3px, #0000003d 0px 1px 2px;
+    width: 80px;
+    text-align: center;
+    margin-right: 4rem;
+}
+
+.nav_menu a:hover {
+    color: #ffffff;
+}
+
+.nav_menu a svg {
+    fill: none;
+    stroke: #8e2323;
+    stroke-width: 72;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 338;
+    stroke-dashoffset: 338;
+    stroke-linecap: round;
+    width: 85px;
+    position: absolute;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: stroke-dashoffset 0s 0.2s, opacity 0.2s;
+    rotate: -5deg;
+    margin-top: 7px;
+    margin-left: -28px;
+    z-index: -5;
+}
+.logout_btn {
+    background-color: transparent;
+    border: none;
+    color: #8e2323;
+    text-shadow: #0000001f 0px 1px 3px, #0000003d 0px 1px 2px;
+    padding: 10px;
+    font-family: "Rufina", serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 18px;
+    margin-top: -8px;
+}

@@ -1,0 +1,32 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<body>
+    <div class="blur-background"></div>
+    <div class="container">
+        <%- include('../includes/navigation.ejs') %>        
+        <main>
+            <h1 id="login_1">Add a New Barber</h1>
+            <form class="product-form" action="/admin/<% if (editing) { %>edit-barber<% } else { %>add-barber<% } %>" method="POST">
+                <div class="form-control">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" value="<% if (editing) { %><%= barber.title %><% } %>" placeholder="Enter barber name" required>
+                </div>
+                <div class="form-control">
+                    <label for="imageUrl">Image URL</label>
+                    <input type="text" name="imageUrl" id="imageUrl" value="<% if (editing) { %><%= barber.imageUrl %><% } %>" placeholder="Enter image URL" required>
+                </div>
+                <div class="form-control">
+                    <label for="price">Price</label>
+                    <input type="number" name="price" id="price" step="0.01" value="<% if (editing) { %><%= barber.price %><% } %>" placeholder="Enter price" required>
+                </div>
+                <div class="form-control">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" rows="5" placeholder="Enter your description" required><% if (editing) { %><%= barber.description %><% } %></textarea>
+                </div>
+    
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="btn" type="submit"><% if (editing) { %>Update barber<% } else { %>Add Barber<% } %></button>
+            </form>
+        </main>
+    </div>
+<%- include('../includes/end.ejs') %>
