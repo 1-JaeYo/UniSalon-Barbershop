@@ -1,4 +1,10 @@
 const Barber = require('../models/barber');
+const ContactMessage = require('../models/contact-message');
+
+const getFlashMessage = (req, type) => {
+  const messages = req.flash(type);
+  return messages.length > 0 ? messages[0] : null;
+};
 
 exports.getBarbers = (req, res, next) => {
   Barber.find()
@@ -15,17 +21,37 @@ exports.getBarbers = (req, res, next) => {
     });
 };
 
-exports.getBarber = (req, res, next) => {
+exports.getBarber = async (req, res, next) => {
   const prodId = req.params.productId;
-  Barber.findById(prodId)
-    .then(barber => {
-      res.render('shop/barber-detail', {
-        barber: barber,
-        pageTitle: barber.title,
+
+  try {
+    const barber = await Barber.findById(prodId);
+
+    if (!barber) {
+      return res.status(404).render('404', {
+        pageTitle: 'Barber Not Found',
         path: '/barbers',
       });
-    })
-    .catch(err => console.log(err));
+    }
+
+    res.render('shop/barber-detail', {
+      barber: barber,
+      pageTitle: barber.title,
+      path: '/barbers',
+    });
+  } catch (err) {
+    console.log(err);
+    if (err.name === 'CastError') {
+      return res.status(404).render('404', {
+        pageTitle: 'Barber Not Found',
+        path: '/barbers',
+      });
+    }
+    res.status(500).render('500', {
+      pageTitle: 'Server Error',
+      path: '/barbers',
+    });
+  }
 };
 
 exports.getIndex = (req, res, next) => {
@@ -43,30 +69,43 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getAbout = (req, res, next) => {
-  Barber.find()
-    .then(barbers => {
-      res.render('shop/about', {
-        barbers: barbers,
-        pageTitle: 'About Us',
-        path: '/',
-      });
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  res.render('shop/about', {
+    pageTitle: 'About Us',
+    path: '/about',
+  });
 };
 
 exports.getContactUs = (req, res, next) => {
-  Barber.find()
-    .then(barbers => {
-      res.render('shop/contactUs', {
-        barbers: barbers,
-        pageTitle: 'Contact Us',
-        path: '/',
-      });
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  res.render('shop/contactUs', {
+    pageTitle: 'Contact Us',
+    path: '/contactUs',
+    errorMessage: getFlashMessage(req, 'error'),
+    successMessage: getFlashMessage(req, 'success'),
+  });
 };
 
+exports.postContactUs = async (req, res, next) => {
+  const name = req.body.name ? req.body.name.trim() : '';
+  const email = req.body.email ? req.body.email.trim().toLowerCase() : '';
+  const message = req.body.message ? req.body.message.trim() : '';
+
+  if (!name || !email || !message) {
+    req.flash('error', 'Please complete every field before submitting.');
+    return res.redirect('/contactUs');
+  }
+
+  try {
+    const contactMessage = new ContactMessage({
+      name: name,
+      email: email,
+      message: message,
+    });
+    await contactMessage.save();
+    req.flash('success', 'Thanks for the feedback. Your message was sent.');
+    res.redirect('/contactUs');
+  } catch (err) {
+    console.log(err);
+    req.flash('error', 'Your message could not be saved. Please try again.');
+    res.redirect('/contactUs');
+  }
+};

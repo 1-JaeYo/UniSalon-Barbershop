@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "test": "node --check app.js && node --check controllers/admin.js && node --check controllers/auth.js && node --check controllers/error.js && node --check controllers/shop.js && node --check models/barber.js && node --check models/contact-message.js && node --check models/user.js && node --check routes/admin.js && node --check routes/auth.js && node --check routes/shop.js"
   },
   "author": "Jonathan",
   "license": "ISC",

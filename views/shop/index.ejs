@@ -13,7 +13,7 @@
                             <div class="untitled__slideContent">
                                 <span>Welcome To </span> 
                                 <span>UniSalon</span>
-                                <a class="button" href="/about" target="/black">Read About Us</a>
+                                <a class="button" href="/about">Read About Us</a>
                             </div>
                         </div>
                         <div class="untitled__slide">
@@ -22,7 +22,7 @@
                                 
                                 <span>Upcoming Plans for this</span> 
                                 <span>Project</span>
-                                <a class="button" href="#" target="/black">See Here</a>
+                                <a class="button" href="/barbers">Browse Stylists</a>
                             </div>
                         </div>
                         <div class="untitled__slide">
@@ -30,7 +30,7 @@
                             <div class="untitled__slideContent">
                                 <span>Barber of the Month-</span> 
                                 <span>Temitayo</span>
-                                <a class="button" href="#" target="/black">Instagram Profile</a>
+                                <a class="button" href="https://www.instagram.com" target="_blank" rel="noreferrer">Follow Us</a>
                             </div>
                         </div>
                         <div class="untitled__slide">
@@ -38,7 +38,11 @@
                             <div class="untitled__slideContent">
                                 <span>Wanna be a</span> 
                                 <span>Barber?</span>
-                                <a class="button" href="/admin/barbers" target="/black">Register Here</a>
+                                <% if (isAuthenticated) { %>
+                                    <a class="button" href="/admin/add-barber">Create Profile</a>
+                                <% } else { %>
+                                    <a class="button" href="/signup">Register Here</a>
+                                <% } %>
                             </div>
                         </div>
                     </div>

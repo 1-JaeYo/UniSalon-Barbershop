@@ -2,37 +2,39 @@ const bcrypt = require('bcryptjs')
 
 const User = require('../models/user');
 
-exports.getLogin = (req, res, next) => {
-    let message = req.flash('error');
-    if (message.length > 0) {
-        message = message[0];
-    } else {
-        message = null;
+const getFlashMessage = (req, type) => {
+    const messages = req.flash(type);
+    if (messages.length > 0) {
+        return messages[0];
     }
+    return null;
+};
+
+exports.getLogin = (req, res, next) => {
     res.render('auth/login', {
         path: '/login',
         pageTitle: 'Login',
-        errorMessage: message
+        errorMessage: getFlashMessage(req, 'error')
     });
 };
 
 exports.getSignup = (req, res, next) => {
-    let message = req.flash('error');
-    if (message.length > 0) {
-        message = message[0];
-    } else {
-        message = null;
-    }
     res.render('auth/signup', {
         path: '/signup',
         pageTitle: 'Signup',
-        errorMessage: message
+        errorMessage: getFlashMessage(req, 'error')
     });
 };
 
 exports.postLogin = (req, res, next) => {
-    const email = req.body.email;
-    const password = req.body.password
+    const email = req.body.email ? req.body.email.trim().toLowerCase() : '';
+    const password = req.body.password;
+
+    if (!email || !password) {
+        req.flash('error', 'Enter both your email and password.');
+        return res.redirect('/login');
+    }
+
     User.findOne({
         email: email
     })
@@ -64,8 +66,25 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.postSignup = (req, res, next) => {
-    const email = req.body.email;
+    const email = req.body.email ? req.body.email.trim().toLowerCase() : '';
     const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
+
+    if (!email || !password) {
+        req.flash('error', 'Enter both your email and password.');
+        return res.redirect('/signup');
+    }
+
+    if (password.length < 6) {
+        req.flash('error', 'Password must be at least 6 characters long.');
+        return res.redirect('/signup');
+    }
+
+    if (password !== confirmPassword) {
+        req.flash('error', 'Passwords do not match.');
+        return res.redirect('/signup');
+    }
+
     User
         .findOne({
         email: email,
@@ -80,10 +99,7 @@ exports.postSignup = (req, res, next) => {
             .then(hashedPassword => {
             const user = new User({
                 email: email,
-                password: hashedPassword,
-                cart: {
-                items: []
-                }
+                password: hashedPassword
             });
             return user.save();
             })

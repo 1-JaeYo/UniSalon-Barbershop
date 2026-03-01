@@ -8,9 +8,19 @@
             <div class="about_main">
                 <div class="contact_top">
                     <h1>Contact Us</h1>
-                    <p>We would love you feedback and suggestions!</p>
+                    <p>We would love your feedback and suggestions!</p>
                 </div>
-                <form class="contact_form" action="#" method="post">
+                <% if (errorMessage) { %>
+                    <div class="user-message user-message--error">
+                        <%= errorMessage %>
+                    </div>
+                <% } %>
+                <% if (successMessage) { %>
+                    <div class="user-message">
+                        <%= successMessage %>
+                    </div>
+                <% } %>
+                <form class="contact_form" action="/contactUs" method="post">
                     <div class="form_group">
                         <label for="name">Name:</label>
                         <input type="text" id="name" name="name" placeholder="Your Name" required>
@@ -23,6 +33,7 @@
                         <label for="message">Message:</label>
                         <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
                     </div>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button type="submit" class="submit_button">Submit</button>
                 </form>
             </div>

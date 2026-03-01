@@ -9,10 +9,11 @@ const csrf = require('csurf');
 const flash = require('connect-flash');
 
 const errorController = require('./controllers/error');
-const User = require('./models/user')
+const User = require('./models/user');
 
-const MONGODB_URI = 
-    'mongodb+srv://jokonkwo07:okeorimili1@cluster0.x8zxu.mongodb.net/shop';
+const MONGODB_URI =
+    process.env.MONGODB_URI || 'mongodb+srv://jokonkwo07:jesuslovesme@cluster0.qygsnzr.mongodb.net/shop?retryWrites=true&w=majority';
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 const store = new MongoDbStore({
@@ -39,7 +40,7 @@ app.use(
     })
 );
 app.use(csrfProtection);
-app.use(flash())
+app.use(flash());
 
 app.use((req, res, next) => {
     if (!req.session.user) {
@@ -47,6 +48,16 @@ app.use((req, res, next) => {
     }
     User.findById(req.session.user._id)
         .then(user => {
+            if (!user) {
+                req.session.user = null;
+                req.session.isLoggedIn = false;
+                return req.session.save(err => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    next();
+                });
+            }
             req.user = user;
             next();
         })
@@ -71,7 +82,7 @@ mongoose
     )
     .then(result => {
         console.log('Connected');
-        app.listen(4000);
+        app.listen(PORT);
     })
     .catch(err => {
         console.log(err);

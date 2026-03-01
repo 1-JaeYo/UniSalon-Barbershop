@@ -44,6 +44,11 @@ nav {
     color: #605f5f;
 }
 
+.user_profile a.active,
+.nav_menu a.active {
+    color: white;
+}
+
 .nav_menu a {
     color: #8e2323;
     text-shadow: #0000001f 0px 1px 3px, #0000003d 0px 1px 2px;
@@ -86,12 +91,17 @@ nav {
     font-size: 18px;
     margin-top: -8px;
 }
-#menu_back {
+
+.nav_menu a.active svg {
     stroke-dashoffset: 0;
     opacity: 1;
     transition: opacity 0s, stroke-dashoffset 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 #menu_text {
+    color: #8e2323;
+}
+
+#menu_text.active {
     color: white;
 }
